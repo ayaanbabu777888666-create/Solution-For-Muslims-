@@ -19,7 +19,7 @@ html{scroll-behavior:smooth}
 
 body{
  background:#06170f;
- color:#fff;
+ color:white;
 }
 
 header{
@@ -193,18 +193,14 @@ section{
  padding:17px 8px;
  background:#123e29;
  border:1px solid #378b5a;
- color:#fff;
+ color:white;
  border-radius:10px;
  font-size:19px;
  font-weight:bold;
  cursor:pointer;
 }
 
-.amounts button.active{
- background:#27bd75;
- color:#04170d;
-}
-
+.amounts button.active,
 .amounts button:hover{
  background:#27bd75;
  color:#04170d;
@@ -252,42 +248,6 @@ input:focus{
 
 .paybtn:hover{
  background:#52df99;
-}
-
-.qr-box{
- text-align:center;
- margin-top:25px;
- padding:20px 12px;
- background:#06180f;
- border:1px solid #2b6645;
- border-radius:13px;
-}
-
-.qr-box h3{
- color:#70e6a5;
- margin-bottom:10px;
-}
-
-.qr-box img{
- display:block;
- width:100%;
- max-width:290px;
- margin:15px auto;
- background:white;
- border-radius:8px;
- padding:8px;
-}
-
-.qr-box p{
- color:#b6cdbd;
- font-size:12px;
- line-height:1.8;
-}
-
-.qr-name{
- color:#72e6a5 !important;
- font-size:14px !important;
- font-weight:bold;
 }
 
 #afterPayment{
@@ -462,11 +422,11 @@ footer p{
    इस पहल को संचालित करने में वास्तविक
    प्रशासनिक और श्रम संबंधी खर्च हो सकते हैं।
 
-   संचालक की घोषित उचित मजदूरी और
-   जरूरी संचालन खर्च का हिसाब अलग रखा
-   जाएगा। इन खर्चों के बाद उपलब्ध शेष
-   राशि को निर्धारित सामाजिक कार्यों में
-   लगाने का प्रयास किया जाएगा।
+   संचालक की उचित मजदूरी और जरूरी
+   संचालन खर्च का हिसाब अलग रखा जाएगा।
+   इन खर्चों के बाद उपलब्ध शेष राशि को
+   निर्धारित सामाजिक कार्यों में लगाने
+   का प्रयास किया जाएगा।
 
    <br><br>
 
@@ -511,7 +471,7 @@ footer p{
 
 </section>
 
-<!-- PAYMENT -->
+<!-- SUPPORT / PAYMENT -->
 
 <section id="support">
 
@@ -576,8 +536,6 @@ footer p{
    <option value="no">No, Keep My Name Private</option>
   </select>
 
-  <!-- DIRECT UPI PAYMENT -->
-
   <button class="paybtn" onclick="payUPI()">
    PAY DIRECTLY WITH UPI →
   </button>
@@ -587,36 +545,6 @@ footer p{
    UPI ऐप खुल सकता है। भुगतान से पहले
    प्राप्तकर्ता का नाम और राशि जांच लें।
   </p>
-
-  <!-- QR CODE -->
-
-  <div class="qr-box">
-
-   <h3>SCAN & PAY</h3>
-
-   <p>
-    किसी भी समर्थित UPI ऐप से नीचे दिया गया
-    QR कोड स्कैन करके भुगतान करें।
-   </p>
-
-   <img
-    src="payment-qr.png"
-    alt="Solution For Muslims UPI Payment QR Code">
-
-   <p class="qr-name">
-    Md Kaisar Alam
-   </p>
-
-   <p>
-    UPI ID: project.1@ibl
-   </p>
-
-   <p>
-    QR स्कैन करने के बाद अपने चुने हुए
-    भुगतान की राशि UPI ऐप में स्वयं दर्ज करें।
-   </p>
-
-  </div>
 
   <!-- PAYMENT ACKNOWLEDGEMENT -->
 
@@ -719,17 +647,12 @@ footer p{
 
 <script>
 
-// ===================================
-// UPI PAYMENT CONFIGURATION
-// ===================================
+// UPI PAYMENT DETAILS
 
 const UPI_ID = "project.1@ibl";
-
 const PAYEE_NAME = "Md Kaisar Alam";
 
-// ===================================
-// AMOUNT SELECTION
-// ===================================
+// SELECT AMOUNT
 
 function selectAmount(amount,button){
 
@@ -741,6 +664,8 @@ function selectAmount(amount,button){
  button.classList.add("active");
 
 }
+
+// CUSTOM AMOUNT
 
 function customAmount(button){
 
@@ -762,9 +687,7 @@ function clearSelection(){
 
 }
 
-// ===================================
-// PAYMENT VALIDATION
-// ===================================
+// VALIDATE DETAILS
 
 function getPaymentDetails(){
 
@@ -776,10 +699,8 @@ function getPaymentDetails(){
  );
 
  if(!name){
-
   alert("कृपया अपना नाम दर्ज करें।");
   return null;
-
  }
 
  if(!Number.isFinite(amount) ||
@@ -787,16 +708,13 @@ function getPaymentDetails(){
 
   alert("कृपया सही राशि दर्ज करें।");
   return null;
-
  }
 
  return {name,amount};
 
 }
 
-// ===================================
 // DIRECT UPI PAYMENT
-// ===================================
 
 function payUPI(){
 
@@ -807,13 +725,9 @@ function payUPI(){
  const params=new URLSearchParams({
 
   pa:UPI_ID,
-
   pn:PAYEE_NAME,
-
   am:details.amount.toFixed(2),
-
   cu:"INR",
-
   tn:"Voluntary Community Support"
 
  });
@@ -827,9 +741,7 @@ function payUPI(){
 
 }
 
-// ===================================
-// PAYMENT ACKNOWLEDGEMENT
-// ===================================
+// PAYMENT DETAILS SUBMISSION
 
 function submitPayment(){
 
@@ -860,9 +772,7 @@ function submitPayment(){
  const paymentDetails={
 
   name:details.name,
-
   amount:details.amount,
-
   utr:utr,
 
   privacy:document.getElementById("privacy").value,
@@ -873,15 +783,11 @@ function submitPayment(){
 
  };
 
- // अभी केवल अस्थायी acknowledgement.
- // वास्तविक डेटाबेस और सर्वर सत्यापन
- // जोड़ना बाकी है।
-
  console.log(paymentDetails);
 
  document.getElementById("message").innerHTML=
 
- "आपकी जानकारी तैयार हो गई है। अभी यह सर्वर पर जमा नहीं हुई है। वास्तविक भुगतान सत्यापन और सार्वजनिक नाम दिखाने के लिए सुरक्षित Backend कनेक्शन जरूरी है।";
+ "आपकी जानकारी तैयार हो गई है। अभी यह सर्वर पर जमा नहीं हुई है। वास्तविक भुगतान सत्यापन और नाम Active करने के लिए सुरक्षित Backend कनेक्शन जरूरी है।";
 
 }
 
